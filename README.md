@@ -17,9 +17,10 @@ Each of the systems will have to be independent from each other's contaienrs whi
 
 
 Prerequisites: Required Software
-Python 
+Python 3.11 
 Docker Compose
 Docker
+Docker Desktop 
 
 Installation & setup
 
