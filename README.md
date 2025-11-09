@@ -24,10 +24,14 @@ Docker Desktop
 
 Installation & setup
 
+pip install sqlmodel
+
 Usage Instructions: 
 
 
 API Documentation: 
+
+https://sqlmodel.tiangolo.com/ 
 
 Testing:
 
