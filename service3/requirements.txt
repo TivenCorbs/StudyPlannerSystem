@@ -1,0 +1,8 @@
+#Scheduler Server
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+pydantic==2.9.2
+redis ==5.0.01# stores reminder states or notification
+httpx==0.27.0#Check user/task service health
+apscheduler==3.10.4#schedules are a recurring reminder to do your work/do your work soon 
+
