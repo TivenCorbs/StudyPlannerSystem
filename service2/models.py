@@ -2,8 +2,9 @@ from pydantic import BaseModel, EmailStr
 from typing import Optional, Dict
 from sqlmodel import SQLModel, Field
 
-
+#Seperate database table known for Task service
 class Task(SQLModel, table=True):
+    __tablename__ = "tasks"
     id: Optional[int] = Field(default=None, primary_key=True)
     name: str
     email: EmailStr

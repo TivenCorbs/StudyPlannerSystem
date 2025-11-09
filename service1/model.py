@@ -2,7 +2,10 @@ from pydantic import BaseModel, EmailStr
 from typing import Optional, Dict
 from sqlmodel import SQLModel, Field
 
+
+#Seperate database table known for user service
 class User_Table(SQLModel, table=True):
+    __tablename__ = "users"
     id: Optional[int] = Field(default=None, primary_key=True)
     name: str = Field(index=True)
     email: EmailStr = Field(unique=True, index=True)
