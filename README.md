@@ -33,6 +33,8 @@ API Documentation:
 
 https://sqlmodel.tiangolo.com/ 
 
+https://docs.pydantic.dev/latest/#pydantic-examples fas
+
 Testing:
 
 Project Structure:
