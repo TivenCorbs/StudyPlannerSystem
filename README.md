@@ -33,7 +33,9 @@ API Documentation:
 
 https://sqlmodel.tiangolo.com/ 
 
-https://docs.pydantic.dev/latest/#pydantic-examples fas
+https://docs.pydantic.dev/latest/#pydantic-examples 
+
+https://fastapi.tiangolo.com/#create-it 
 
 Testing:
 
