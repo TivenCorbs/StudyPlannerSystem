@@ -51,14 +51,9 @@ def root():
     return {"Message": "User Service is Running"}
 
 
-@app.get("health")
-async def health_check():
-
-    dependencies = {}
-
-    run_time = time.time()
-
-
+#Creatubg ENDPOINT (POST/USERS)
+#This will allow clients (or other services) to create a user
+#Pydantic will then verify to see if it is valid 
 
 
 

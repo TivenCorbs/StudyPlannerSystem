@@ -21,11 +21,12 @@ USER_SERVICE_HOST = os.getenv("USER_SERVICE_HOST", "user-service")
 USER_SERVICE_PORT = int(os.getenv("USER_SERVICE_PORT", 8001))
 
 TASK_SERVICE_HOST = os.getenv("TASK_SERVICE_HOST","task-service")
+
+#No User Port? Assume Port:8002
 TASK_SERVICE_PORT = int(os.getenv("USER_SERVICE_PORT",8002))
 
 #USER & TASK SERVICE URL: Connect to other services via correct address
 USER_SERVICE_URL = f"https://{USER_SERVICE_HOST}:{USER_SERVICE_PORT}"
-TASK_SERVICE_URL = f"https://{TASK_SERVICE_HOST}:{TASK_SERVICE_PORT}"
 
 
 #Pydantic Models 

@@ -24,7 +24,22 @@ Docker Desktop
 
 Installation & setup
 
+pip install fastapi uvicorn httpx pydantic
+
+pip list
+
 pip install sqlmodel
+
+You should see
+fastapi
+httpx
+pydantic
+uvicorn
+
+Run the App Using: 
+uvicorn main:app --reload
+
+
 
 Usage Instructions: 
 
@@ -38,5 +53,38 @@ https://docs.pydantic.dev/latest/#pydantic-examples
 https://fastapi.tiangolo.com/#create-it 
 
 Testing:
+
+Docker Commands (Friendly Reminder)
+
+Run the container
+docker run -d -p 8000:8000 fastapi-app
+
+Container ID
+docker ps
+
+Stop By Name or ID
+
+docker stop <container_id>
+
+Remove Container
+
+docker rm <container_id>
+
+Remove Image
+
+docker rmi fastapi-app
+
+Rebuild and Retest quickly
+
+docker build -t fastapi-app .
+docker run -d -p 8000:8000 fastapi-app
+
+Testing Endpoints
+
+curl http://localhost:8000
+
+
+
+
 
 Project Structure:
