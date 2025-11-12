@@ -1,11 +1,13 @@
+#service3/main.py
+
 import os
 import httpx
 import time
 from fastapi import FastAPI, HTTPException
 from typing import Optional, Dict
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 from datetime import datetime
-
+from sqlmodel import SQLModel,Field 
 app = FastAPI(title="Scheduling Services", version = "1.0.0")
 
 
@@ -17,14 +19,23 @@ app = FastAPI(title="Scheduling Services", version = "1.0.0")
 
 #Pydantic Model
 
-class ReminderCreate(BaseModel):
+class Reminder(SQLModel, table=True):
+    __tablename__ = "reminders"
+    id: Optional[int] = Field(default=None, primary_key=True)
+    user_id: int = Field(foreign_key="user_id")
+    task_id: int = Field(foreign_key="task.id")
+    remind_at: datetime
+    message:str
+
+
+class ReminderCreate(SQLModel):
     user_id: int
     task_id: int
     remind_at: datetime
     message: str
 
 
-class ReminderResponse(BaseModel):
+class ReminderResponse(SQLModel):
     user_id: int
     task_id: int
     remind_at: datetime
@@ -42,6 +53,7 @@ class HealthResponse(BaseModel):
     service: str
     status: str
     dependencies: Optional[Dict[str, DependencyStatus]]
+
 
 
 

@@ -52,6 +52,8 @@ https://docs.pydantic.dev/latest/#pydantic-examples
 
 https://fastapi.tiangolo.com/#create-it 
 
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status
+
 Testing:
 
 Docker Commands (Friendly Reminder)

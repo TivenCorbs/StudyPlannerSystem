@@ -27,14 +27,3 @@ class ReminderResponse(SQLModel):
 
 
 
-#Describes status of single dependency
-class DependencyStatus(BaseModel):
-    status: str
-    response_time_ms: Optional[int]
-
-#Describes overall health status of service (similar to other services) 
-class HealthResponse(BaseModel):
-    service: str
-    status: str
-    dependencies: Optional[Dict[str, DependencyStatus]]
-
