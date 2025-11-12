@@ -5,7 +5,7 @@ from fastapi import FastAPI, HTTPException
 from typing import Optional, Dict
 from pydantic import BaseModel
 from datetime import datetime
-from sqlmodel import SQLModel, Field
+from sqlmodel import SQLModel, Field, select, create_engine
 #Initialize FastAPI
 task_service = FastAPI(title="Task Services", version = "1.0.0")
 
@@ -59,4 +59,61 @@ class TaskResponse(BaseModel):
     title: str
     description: Optional[str] = None
     due_date: Optional[datetime] = None
+
+
+class DependencyStatus(BaseModel):
+    status: str
+    response_time_ms: Optional[int]
+
+
+class HealthResponse(BaseModel):
+    service: str
+    status: str
+    dependencies: Optional[Dict[str, DependencyStatus]]
+
+
+
+#startup the taskservice database
+@task_service.on_event("startup")
+def startup():
+    SQLModel.metadata.create_all(create_engine)
+
+
+
+
+#HealthCheck
+@task_service.get("/health", response = HealthResponse)
+async def health_check():
+
+
+   dependencies = {}
+   status = "healthy"
+
+
+   start_time = time.time()
+
+
+
+
+   try:
+       r = httpx.get(f"{USER_SERVICE_URL}/health",timeout=3)
+       latency = int((time.time()-start_time)*1000)
+
+       if r.status_code==200:
+           dependencies["user_service"] = DependencyStatus(status="healthy",response_time_ms=latency)
+       else:
+           dependencies["user-service"] = DependencyStatus(status="unhealthy")
+           
+
+   except Exception:
+       dependencies["unhealthy"] = DependencyStatus(status="unhealthy")
+     
+
+
+   return HealthResponse(service = "task-service",status=status,dependencies=dependencies)
+
+
+
+
+
 
