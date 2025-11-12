@@ -4,8 +4,8 @@ import time
 from fastapi import FastAPI, HTTPException
 from typing import Optional, Dict
 from pydantic import BaseModel
-
-
+from datetime import datetime
+from sqlmodel import SQLModel, Field
 #Initialize FastAPI
 task_service = FastAPI(title="Task Services", version = "1.0.0")
 
@@ -37,32 +37,26 @@ USER_SERVICE_URL = f"https://{USER_SERVICE_HOST}:{USER_SERVICE_PORT}"
 
 #Pydantic Model 
 
+#Seperate database table known for Task service
 class Task(SQLModel, table=True):
     __tablename__ = "tasks"
     id: Optional[int] = Field(default=None, primary_key=True)
-    name: str
-    email: EmailStr
-    password: str
+    user_id: str
+    title: str
+    description: Optional[str] = None
+    status: str = "pending"
+    due_date: Optional[datetime] = None
 
-class userCreate(BaseModel):
-    name: str
-    email: EmailStr
-    password: str
+class TaskCreate(BaseModel):
+    user_id: str
+    title: str
+    description: Optional[str] = None
+    due_date: Optional[datetime] = None
 
 
-class UserResponse(BaseModel):
+class TaskResponse(BaseModel):
     id: int
-    name: str
-    email: str
+    title: str
+    description: Optional[str] = None
+    due_date: Optional[datetime] = None
 
-
-#Health Model - Health Endpoint checks and responses
-class DependencyStatus(BaseModel):
-    status: str
-    response_time_ms: Optional[int]
-
-
-class HealthResponse(BaseModel):
-    service: str
-    status: str
-    dependencies: Optional[Dict[str, DependencyStatus]]
