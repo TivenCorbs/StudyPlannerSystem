@@ -2,7 +2,7 @@
 fastapi==0.115.0
 uvicorn[standard]==0.30.6
 pydantic==2.9.2
-sqlmodel ===0.0.22
+sqlmodel===0.0.22
 databases==0.9.0
-httpx ==0.27.0 # Call user or scheduler service for health checks
-redis == 5.0.1 #tasks are cached/quick access via redis 
+httpx==0.27.0 # Call user or scheduler service for health checks
+redis==5.0.0 #tasks are cached/quick access via redis 
