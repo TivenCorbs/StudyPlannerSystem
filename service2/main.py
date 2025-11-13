@@ -5,9 +5,11 @@ from fastapi import FastAPI, HTTPException
 from typing import Optional, Dict
 from pydantic import BaseModel
 from datetime import datetime
-from sqlmodel import SQLModel, Field, select, create_engine
+from sqlmodel import SQLModel, Field, Session, create_engine, select
+
+
 #Initialize FastAPI
-task_service = FastAPI(title="Task Services", version = "1.0.0")
+app = FastAPI(title="Task Services", version = "1.0.0")
 
 
 
@@ -35,7 +37,12 @@ TASK_SERVICE_PORT = int(os.getenv("USER_SERVICE_PORT",8002))
 #USER & TASK SERVICE URL: Connect to other services via correct address
 USER_SERVICE_URL = f"https://{USER_SERVICE_HOST}:{USER_SERVICE_PORT}"
 
+
+engine = create_engine("sqlite:///task.db")
+
+
 #Pydantic Model 
+
 
 #Seperate database table known for Task service
 class Task(SQLModel, table=True):
@@ -74,15 +81,15 @@ class HealthResponse(BaseModel):
 
 
 #startup the taskservice database
-@task_service.on_event("startup")
+@app.on_event("startup")
 def startup():
-    SQLModel.metadata.create_all(create_engine)
+    SQLModel.metadata.create_all(engine)
 
 
 
 
 #HealthCheck
-@task_service.get("/health", response = HealthResponse)
+@app.get("/health", response_model= HealthResponse)
 async def health_check():
 
 

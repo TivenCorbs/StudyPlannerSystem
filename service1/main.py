@@ -6,7 +6,9 @@ from typing import Optional, Dict
 import time
 import redis
 import os
-from sqlmodel import SQLModel, Field, session, create_engine, select
+from sqlmodel import SQLModel, Field, Session, create_engine, select
+
+
 
 
 #Intiliazing FASTAPI

@@ -7,13 +7,15 @@ from fastapi import FastAPI, HTTPException
 from typing import Optional, Dict
 from pydantic import BaseModel, EmailStr
 from datetime import datetime
-from sqlmodel import SQLModel,Field,Session,create_engine,select
+from sqlmodel import SQLModel, Field, Session, create_engine, select
+
+
 
 
 #Start FASTAPI
 app = FastAPI(title="Scheduling Services", version = "1.0.0")
 
-
+engine = create_engine("sqlite:///scheduler.db")
 
 #Pydantic Model
 
@@ -67,12 +69,12 @@ TASK_SERVICE_URL = f"https://{TASK_SERVICE_HOST}:{TASK_SERVICE_PORT}"
 
 @app.on_event("startup")
 def startup():
-    SQLModel.metadata.create_all(create_engine)
+    SQLModel.metadata.create_all(engine)
 
 
 
 #HealthCheck
-@app.get("/health", response = HealthResponse)
+@app.get("/health", response_model= HealthResponse)
 async def health_check():
    dependencies = {}
    status = "healthy"
